@@ -52,6 +52,25 @@
 			"response": []
 		},
 		{
+			"name": "Get Owner by ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/owners/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"owners",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Create Car",
 			"request": {
 				"method": "POST",
@@ -80,6 +99,24 @@
 		},
 		{
 			"name": "List Cars",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/cars",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"cars"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Car by ID",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -142,6 +179,25 @@
 			"response": []
 		},
 		{
+			"name": "Get by Car ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/repairs/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"repairs",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Create Engine",
 			"request": {
 				"method": "POST",
@@ -181,6 +237,25 @@
 					"port": "8080",
 					"path": [
 						"engines"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Engine by Car ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/engines/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"engines",
+						"1"
 					]
 				}
 			},
@@ -232,6 +307,25 @@
 			"response": []
 		},
 		{
+			"name": "Get Tires by Car ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/tires/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"tires",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Create Insurance",
 			"request": {
 				"method": "POST",
@@ -271,6 +365,25 @@
 					"port": "8080",
 					"path": [
 						"insurance"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Insurances get by Car ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/insurance/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"insurance",
+						"1"
 					]
 				}
 			},
