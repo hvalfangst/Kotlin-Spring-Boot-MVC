@@ -13,7 +13,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"owner_name\": \"Igor Bogdanov\",\r\n    \"contact_info\": \"yesterday.in@norwegian.com\",\r\n    \"date_of_birth\": \"1973-04-15\"\r\n}\r\n",
+					"raw": "{\r\n    \"owner_name\": \"Reodor Felgen\",\r\n    \"contact_info\": \"fuck.blodstrutmoenn@flaaklypa.com\",\r\n    \"date_of_birth\": \"1910-04-03\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -121,13 +121,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/cars",
+					"raw": "localhost:8080/cars/1",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"cars"
+						"cars",
+						"1"
 					]
 				}
 			},
@@ -179,7 +180,7 @@
 			"response": []
 		},
 		{
-			"name": "Get by Car ID",
+			"name": "Get Repairs by Car ID",
 			"request": {
 				"method": "GET",
 				"header": [],
