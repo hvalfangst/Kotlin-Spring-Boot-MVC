@@ -2,13 +2,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.1.1</version>
+        <version>3.1.2</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
@@ -16,7 +15,7 @@
     <artifactId>kotlin-spring-boot-with-exposed</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>kotlin-spring-boot-with-exposed</name>
-    <description> API written in Spring Boot with Exposed ORM </description>
+    <description>API written in Spring Boot with Exposed ORM</description>
 
     <properties>
         <java.version>17</java.version>
@@ -25,7 +24,6 @@
     </properties>
 
     <dependencies>
-
         <!-- Spring Boot Starter Web -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -36,16 +34,6 @@
         <dependency>
             <groupId>com.fasterxml.jackson.module</groupId>
             <artifactId>jackson-module-kotlin</artifactId>
-        </dependency>
-
-        <!-- Kotlin Reflect and Stdlib -->
-        <dependency>
-            <groupId>org.jetbrains.kotlin</groupId>
-            <artifactId>kotlin-reflect</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.jetbrains.kotlin</groupId>
-            <artifactId>kotlin-stdlib</artifactId>
         </dependency>
 
         <!-- Spring Boot Starter Test -->
@@ -84,35 +72,21 @@
             <version>${exposed.version}</version>
         </dependency>
 
-
-        <!-- Spring Boot Configuration Processor (Optional) -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-configuration-processor</artifactId>
-            <optional>true</optional>
-        </dependency>
-
         <!-- HikariCP - High-performance JDBC connection pool for Java applications -->
         <dependency>
             <groupId>com.zaxxer</groupId>
             <artifactId>HikariCP</artifactId>
-            <version>5.0.1</version>
         </dependency>
-
-
     </dependencies>
 
     <build>
         <sourceDirectory>src/main/kotlin</sourceDirectory>
-
         <plugins>
-
             <!-- Spring Boot Maven Plugin -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
-
             <!-- Kotlin Maven Plugin -->
             <plugin>
                 <groupId>org.jetbrains.kotlin</groupId>
@@ -133,8 +107,6 @@
                     </dependency>
                 </dependencies>
             </plugin>
-
         </plugins>
     </build>
-
 </project>

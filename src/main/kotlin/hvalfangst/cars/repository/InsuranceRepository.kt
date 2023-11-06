@@ -1,9 +1,12 @@
 package hvalfangst.cars.repository
 
 import hvalfangst.cars.model.Insurance
+import hvalfangst.cars.model.Repair
 import hvalfangst.cars.model.requests.UpsertInsuranceRequest
 import hvalfangst.cars.model.tables.InsuranceTable
+import hvalfangst.cars.model.tables.RepairsTable
 import org.jetbrains.exposed.sql.ResultRow
+import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.selectAll
@@ -44,11 +47,10 @@ class InsuranceRepository {
         )
     }
 
-    fun getInsuranceForCar(carId: Int): Insurance {
+    fun getInsuranceForCar(carId: Int): List<Insurance> {
         return transaction {
             InsuranceTable.select { InsuranceTable.carId eq carId }
                 .map { it.toInsurance() }
-                .singleOrNull() ?: throw NoSuchElementException("Insurance not found for ID: $carId")
         }
     }
 }

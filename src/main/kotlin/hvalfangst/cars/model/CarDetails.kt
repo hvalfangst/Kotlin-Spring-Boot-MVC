@@ -11,7 +11,7 @@ data class CarDetails(
     @JsonProperty("tires")
     val tires: List<Tire>,
     @JsonProperty("insurance")
-    val insurance: Insurance,
+    val insurance: List<Insurance>,
     @JsonProperty("repairs")
     val repairs: List<Repair>,
     @JsonProperty("engine")
