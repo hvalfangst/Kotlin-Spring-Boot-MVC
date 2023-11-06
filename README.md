@@ -5,33 +5,33 @@
 
 * x86-64
 * Linux/Unix
-* Docker
-* JDK 17
+* [Docker](https://www.docker.com/products/docker-desktop/)
+* [JDK 17](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html)
+* [Maven](https://maven.apache.org/)
 
 
 ## Startup
 
 The script "up" creates our database container and starts up our application:
 ```
-1. docker-compose -f docker/db/docker-compose.yml up -d
+1. docker-compose -f docker/cars/docker-compose.yml up -d
 2. mvn spring-boot:run
 ```
+
+The associated `docker-compose` also contains initialization scripts for creating our database and inserting test rows.
 
 
 ## Shutdown
 
 The script "down" removes our database container:
 ```
-1.docker-compose -f docker/db/docker-compose.yml down
+1.docker-compose -f docker/cars/docker-compose.yml down
 ```
 
 ## Load Testing using Bombardier
-Bombardier is a widely-used open-source benchmarking and load testing tool designed to evaluate the performance and behavior of web servers and applications. 
-It accomplishes this by generating a substantial volume of HTTP requests directed at a specific endpoint. 
+In this project we utilize [Bombardier](https://github.com/codesenberg/bombardier) to conduct load-testing.  
 
-In our tests, we focus on the http://localhost:8080/car-details/{id} endpoint, which serves as a key component of our application. This endpoint's function is to assemble an aggregate object, encompassing domain objects related to the owner, car, engine, tire, insurance, and repair. The aggregation process is achieved by querying the respective repositories associated with each of these domain objects. The result is a comprehensive representation of car details, offering a holistic view of the car, its owner, and various associated components.
-
-By using Bombardier to assess the performance of this endpoint, we can gain crucial insights into how well our application handles varying levels of traffic and concurrency. This testing enables us to determine the application's responsiveness and scalability under real-world conditions, ensuring that it operates efficiently even as demands fluctuate.
+The subject of our tests is the `/car-details` endpoint, which is responsible for retrieving various vehicle-related data from different repositories and responding with an aggregate object.
 
 ### Test 1: 10 Concurrent Connections, 1000 Requests (Baseline)
 ```plaintext
@@ -66,32 +66,31 @@ Statistics:
 ## Test Result Analysis
 
 ### Baseline (C10, N1000)
-The baseline test (Test 1) serves as a critical reference point for evaluating the application's performance. It simulates a moderate load with 10 concurrent connections and 1000 requests. In this scenario:
+The baseline test (Test 1), which serves as our reference point, simulates a moderate load with 10 concurrent connections and 1000 requests. In this scenario:
 
-* The application achieved a request rate of 203.67 requests per second, reflecting its responsiveness under typical usage.
-* The average latency was measured at 50.95ms, demonstrating efficient response times.
-* All 1000 requests resulted in successful HTTP 2xx responses, indicating robust reliability.
-
-This baseline test sets the stage for evaluating how the application's performance varies when exposed to different levels of concurrency and request counts
+* The application achieved a request rate of 203.67 requests per second.
+* The average latency was measured at 50.95ms.
+* All 1000 requests resulted in successful HTTP 2xx responses.
 
 
 ### Test 2 (C100, N1000)
 In Test 2, where 100 concurrent connections and 1000 requests were applied:
 
-* The request rate increased slightly by 1.44% compared to the baseline (Test 1), suggesting a modest scalability improvement.
-* However, the average latency experienced a significant rise of 863.91%, indicating a potential trade-off between response rate and response time.
-* Throughput showed a marginal increase of 2.63% compared to the baseline.
+* The request rate and throughput stays pretty much the same
+* The average latency experienced a significant rise of 863.91%, indicating that `disaster is imminent`
 
 ### Test 3 (C1000, N2000)
 In Test 3, with 1000 concurrent connections and 2000 requests:
 
 * The request rate experienced a notable decrease of 51.82% compared to the baseline (Test 1), revealing potential performance limitations under heavy concurrent load.
-* The average latency surged dramatically by 17,040.39%, showcasing a substantial increase in response times.
+* The average latency surged dramatically by `17,040.39%`, showcasing an exponential increase in response times.
 * Throughput declined by 75.33% compared to the baseline, indicating a considerable reduction in data transfer capacity.
-* The test also encountered timeout errors, highlighting the challenges faced by the application under extreme load conditions.
 
 
 ## Conclusion
-In summary, the performance tests indicate that the application performs well under moderate load but faces scalability and latency challenges as the level of concurrency increases. 
-To improve the application's performance under heavy load conditions, optimizations such as load balancing, connection pooling, and code enhancements may be necessary. 
-Further testing and tuning are advisable to ensure the application can meet the demands of real-world usage.
+The findings suggest that this type of application is best suited for environments with low concurrent load due to the sheer amount of database calls to different repositories.
+This could very much be due to the blocking nature of [JDBC](https://spring.io/blog/2018/12/07/reactive-programming-and-relational-databases). 
+
+One can alleviate these performance issues by incorporating caching with [Redis](https://redis.io/) and load balancing with [NGINX](https://docs.nginx.com/nginx/admin-guide/load-balancer/http-load-balancer/),
+but if performance is in fact important one should consider non-blocking alternatives such as [WebFlux](https://docs.spring.io/spring-framework/reference/web/webflux.html) or [Vert.x](https://vertx.io/); 
+with non-blocking APIs such as [R2DBC](https://r2dbc.io/).
