@@ -3,10 +3,8 @@ package hvalfangst.cars.repository
 import hvalfangst.cars.model.Owner
 import hvalfangst.cars.model.requests.UpsertOwnerRequest
 import hvalfangst.cars.model.tables.OwnersTable
-import org.jetbrains.exposed.sql.ResultRow
-import org.jetbrains.exposed.sql.insert
-import org.jetbrains.exposed.sql.select
-import org.jetbrains.exposed.sql.selectAll
+import org.jetbrains.exposed.sql.*
+import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.springframework.stereotype.Repository
 
@@ -32,6 +30,19 @@ class OwnerRepository {
         return ownerId
     }
 
+    fun updateOwner(ownerId: Int, request: UpsertOwnerRequest): Int {
+        transaction {
+            OwnersTable.update({ OwnersTable.id eq ownerId }) {
+                it[ownerName] = request.ownerName
+                it[contactInfo] = request.contactInfo
+                it[dateOfBirth] = request.dateOfBirth
+            }
+        }
+
+        return ownerId
+    }
+
+
     private fun ResultRow.toOwner(): Owner {
         return Owner(
             ownerId = this[OwnersTable.id],
@@ -46,6 +57,12 @@ class OwnerRepository {
             OwnersTable.select { OwnersTable.id eq ownerId }
                 .map { it.toOwner() }
                 .singleOrNull() ?: throw NoSuchElementException("Car not found for ID: $ownerId")
+        }
+    }
+
+    fun deleteOwnerById(ownerId: Int): Int {
+        return transaction {
+            OwnersTable.deleteWhere { OwnersTable.id eq ownerId }
         }
     }
 }

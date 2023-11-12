@@ -19,7 +19,7 @@ class TireController(private val tireRepository: TireRepository) {
     @GetMapping("/{carId}")
     fun getTiresByCarId(@PathVariable carId: Int): ResponseEntity<List<Tire>> {
         val tires = tireRepository.getTiresForCar(carId)
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(tires)
+        return ResponseEntity.status(HttpStatus.OK).body(tires)
     }
 
     @PostMapping

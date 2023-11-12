@@ -19,7 +19,7 @@ class InsuranceController(private val insuranceRepository: InsuranceRepository) 
     @GetMapping("/{carId}")
     fun getInsuranceByCarId(@PathVariable carId: Int): ResponseEntity<List<Insurance>> {
         val insurance = insuranceRepository.getInsuranceForCar(carId)
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(insurance)
+        return ResponseEntity.status(HttpStatus.OK).body(insurance)
     }
 
     @PostMapping

@@ -19,7 +19,7 @@ class RepairController(private val repairRepository: RepairRepository) {
     @GetMapping("/{id}")
     fun getRepairsByCarId(@PathVariable id: Int): ResponseEntity<List<Repair>> {
         val repairs = repairRepository.getRepairsForCar(id)
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(repairs)
+        return ResponseEntity.status(HttpStatus.OK).body(repairs)
     }
 
     @PostMapping

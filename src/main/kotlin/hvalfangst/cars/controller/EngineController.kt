@@ -19,7 +19,7 @@ class EngineController(private val engineRepository: EngineRepository) {
     @GetMapping("/{carId}")
     fun getEngineByCarId(@PathVariable carId: Int): ResponseEntity<Engine> {
         val engine = engineRepository.getEngineForCar(carId)
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(engine)
+        return ResponseEntity.status(HttpStatus.OK).body(engine)
     }
 
     @PostMapping
